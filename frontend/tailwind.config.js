@@ -1,5 +1,5 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const colors = require('tailwindcss/colors');
+import colors from 'tailwindcss/colors';
 delete colors.lightBlue;
 delete colors.warmGray;
 delete colors.trueGray;
