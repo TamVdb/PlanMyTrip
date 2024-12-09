@@ -8,8 +8,8 @@ const generateToken = (res, userId) => {
    // Save the token in a cookie
    res.cookie('jwt', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV !== 'development',
-      sameSite: 'none', // Allow the cookie to be sent in cross-site requests
+      secure: true,
+      sameSite: 'lax', // Allow the cookie to be sent in cross-site requests
       maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
    });
 
