@@ -1,0 +1,117 @@
+@font-face {
+   font-family: 'Vacaciones';
+   src:url('./fonts/vacaciones/Vacaciones.ttf');
+}
+
+@font-face {
+   font-family: 'Josefin';
+   src:url('./fonts/josefin/JosefinSans-VariableFont_wght.ttf');
+}
+@font-face {
+   font-family: 'Quicksand';
+   src:url('./fonts/quicksand/Quicksand-VariableFont_wght.ttf');
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+   #root {
+      min-height: 100vh;
+      display:flex;
+      flex-direction: column;
+   }
+   
+   html {
+      font-family: 'Quicksand', sans-serif;
+   }
+   h1 {
+      @apply text-2xl;
+  }
+   .input {
+      @apply border border-gray-400 w-full rounded-lg py-1.5 outline-none px-4 focus:ring-1 focus:ring-inset focus:ring-blue-200;
+   }
+
+   .input-label {
+      @apply text-darkerText block pb-1 font-medium;
+   }
+   .transition-200 {
+      @apply transition duration-200 ease-in-out;
+   }
+
+}
+.mainbg {
+   background: linear-gradient(0deg, #F0F9FB 0%, #DAF0F3 50%, #A8DAE3 75%);
+}
+
+.homebgimg {
+   width: 100%;
+   height: 100vh;
+   background-image: url('./assets/home-bg.png');
+   background-size: cover;
+   background-position: center;
+   background-repeat: no-repeat;
+}
+
+/* .trip_list {
+   &::after {
+      content: '';
+      width: 100%;
+      height: 0;
+      visibility: hidden;
+   }
+} */
+
+.day_list {
+   &::after {
+      content: '';
+      width: 100%;
+      height: 0;
+      visibility: hidden;
+   }
+}
+
+/* @media (min-width: 1024px) { 
+   .trip_list {
+      &::after {
+         width: calc(33.33% - 1rem);
+      }
+   }
+} */
+
+@media (min-width: 1280px) { 
+   /* .trip_list {
+      &::after {
+         width: calc(50% - 1rem);
+      }
+   } */
+
+   .day_list {
+      &::after {
+         width: calc(33.33% - 1rem);
+      }
+   }
+}
+
+.react-datepicker-wrapper {
+   width:100%;
+}
+
+.react-datepicker__input-container .react-datepicker__calendar-icon {
+  position: absolute;
+  top: 50% !important;
+  left:1rem;
+  padding:0 !important;
+  transform: translateY(-50%);
+}
+.react-datepicker__view-calendar-icon input {
+   padding:0.375rem 1rem 0.375rem 2.25rem !important;
+}
+
+.trip_done {
+   background-color: rgba(29, 53, 87, 0.5);
+}
+.react-datepicker-popper {
+   z-index:500 !important;
+}
