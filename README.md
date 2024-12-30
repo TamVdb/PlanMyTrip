@@ -52,7 +52,7 @@ npm i
 
 Create a `.env` file with the following variable:
 ```
-VITE_APP_URL:"http://localhost:5173"
+VITE_APP_URL:"http://localhost:8000"
 ``` 
 
 Start the server
