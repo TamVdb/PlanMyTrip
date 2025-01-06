@@ -8,6 +8,8 @@ const userRoutes = require('./routes/userRoutes');
 const tripRoutes = require('./routes/tripRoutes');
 const activityRoutes = require('./routes/activityRoutes');
 
+// const port = process.env.PORT;
+
 connectDB();
 
 const app = express(); // Create an instance of express
@@ -28,5 +30,9 @@ app.use('/api/users', userRoutes);
 app.use('/api/trips', tripRoutes);
 // Call the activities route
 app.use('/api/trip', activityRoutes);
+
+// app.listen(port, () => {
+//    console.log(`Server is running on port ${port}`);
+// });
 
 module.exports = app; // Export app for Vercel
