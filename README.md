@@ -16,10 +16,14 @@ You can easily add activities in real time and organize them by day, thanks to d
 ## 👀 Visuels
 
 ![Imgur](https://tinyurl.com/35hzp8hy)
-![Imgur]()
-![Imgur]()
-![Imgur]()
-![Imgur]()
+![Imgur](https://tinyurl.com/mr29asax)
+![Imgur](https://tinyurl.com/yef9dcn4)
+![Imgur](https://tinyurl.com/2jyejcfs)
+![Imgur](https://tinyurl.com/msjcaaxy)
+![Imgur](https://tinyurl.com/259mahfx)
+![Imgur](https://tinyurl.com/y8nwvysy)
+![Imgur](https://tinyurl.com/4p7jedf8)
+![Imgur](https://tinyurl.com/bddj42sd)
 
 &nbsp;
 ## ⚙️ Installation
