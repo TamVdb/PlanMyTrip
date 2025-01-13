@@ -15,7 +15,7 @@ You can easily add activities in real time and organize them by day, thanks to d
 &nbsp;
 ## 👀 Visuels
 
-![Imgur]()
+![Imgur](https://tinyurl.com/35hzp8hy)
 ![Imgur]()
 ![Imgur]()
 ![Imgur]()
