@@ -22,7 +22,7 @@ const Activity = ({ id, name, location, duration, price, day }) => {
 
    return (
       <>
-         <div className="border-0 rounded bg-[#F0F9FB] py-2 px-4 w-full"
+         <div className="border-0 rounded bg-[#F0F9FB] py-2 px-4 w-full cursor-pointer"
             onDragStart={handleDragStart}
             draggable
          >
