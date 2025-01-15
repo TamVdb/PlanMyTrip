@@ -27,7 +27,7 @@ export const login = createAsyncThunk('auth/login', async (credentials, { reject
 // Action pour la déconnexion
 export const logout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
    try {
-      const response = await axios.post(`${API_URL}/logout`);
+      const response = await axios.post(`${API_URL}/logout`, {}, { withCredentials: true });
       return response.data;
    } catch (error) {
       return rejectWithValue(error.response?.data || 'An error occurred');
