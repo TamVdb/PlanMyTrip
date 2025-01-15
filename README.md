@@ -67,23 +67,28 @@ npm run dev
 &nbsp;
 ## 🔗 Dependencies
 ### Backend
-* Express
-* Mongoose
-* Bcrypt
+* Node.js (22.13.0)
+* npm
+* Express (4.21.1)
+* Mongoose (8.8.0)
+* Bcrypt (5.1.1)
 * Cookie Parser
-* Cors
-* Dotenv
-* JSON Web Token
-* Nodemon
+* Cors (2.8.5)
+* Dotenv (16.4.5)
+* JSON Web Token (9.0.2)
+* Nodemon (3.1.7)
 
 ### Frontend
-* VITE
-* REACT
-* Tailwind
-* Redux
-* Leaflet
-* Axios
-* React toastify
-* React icons
-* React Router Dom
-* React Date Picker
+* Node.js (22.13.0)
+* npm
+* VITE (5.4.8)
+* REACT (18.3.1)
+* Tailwind (3.4.13)
+* Redux (5.0.1)
+* Leaflet (1.9.4)
+* React leaflet (4.2.1)
+* Axios (1.7.7)
+* React toastify (10.0.6)
+* React icons (5.3.0)
+* React Router Dom (6.27.0)
+* React Date Picker (7.5.0)
