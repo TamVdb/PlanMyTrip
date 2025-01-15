@@ -32,8 +32,8 @@ const Signup = ({ onSwitchToLogin = () => { } }) => {
    useEffect(() => {
       if (isSuccess) {
          handleSuccess('User created successfully');
-         // After signing up successfully, dispatch setCredentials to store the user
-         dispatch(setCredentials({ username })); // Update credentials
+         // // After signing up successfully, dispatch setCredentials to store the user
+         // dispatch(setCredentials({ username })); // Update credentials
          setTimeout(() => onSwitchToLogin(), 2000);
       } else if (isError) {
          handleError(message || 'An error occurred. Please try again');
