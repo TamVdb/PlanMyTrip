@@ -41,6 +41,11 @@ const TripsDashboard = () => {
             <h1 className="font-title font-bold text-custom-wine text-center text-3xl sm:text-5xl lg:text-6xl pt-28 md:w-[900px]">{user && user.username}'s trips</h1>
          </div>
 
+         <div className="container py-4 font-semibold text-darkerText text-lg justify-center max-w-5xl">
+            <p className="text-center">Easily organize your travels and make the most of every journey! </p>
+            <p className="text-center">Start by adding a trip with destination and dates. Once created, simply click on your trip to dive into planning your daily activities.</p>
+         </div>
+
          <div className="container py-4 flex justify-between">
             <div className='flex items-center relative grow'>
                <FaGlobeEurope className="text-darkerText text-xl sm:text-2xl lg:text-3xl mr-2" />

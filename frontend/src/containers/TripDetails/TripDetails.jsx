@@ -74,6 +74,11 @@ const TripDetails = ({ trip }) => {
             <h1 className="font-title font-bold text-custom-wine text-center text-3xl sm:text-5xl lg:text-6xl pt-28 md:w-[900px]">{trip.location}</h1>
          </div>
 
+         <div className="container py-4 font-semibold text-darkerText text-lg justify-center max-w-5xl">
+            <p className="text-center">Drag and drop activities into your itinerary, set durations, and optimize your schedule effortlessly.</p>
+            <p className="text-center">Your perfect trip starts here!</p>
+         </div>
+
          <div className="container py-4 flex justify-between">
             <div className='flex items-center relative grow'>
                <FaGlobeEurope className="text-darkerText text-xl sm:text-2xl lg:text-3xl mr-2" />
