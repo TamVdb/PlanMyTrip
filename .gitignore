@@ -35,3 +35,7 @@ backend/dist/
 # Misc
 .DS_Store
 desktop.ini
+
+# Claude Code — documentation de travail locale (non versionnée)
+CLAUDE.md
+doc/
