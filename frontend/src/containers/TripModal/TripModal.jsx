@@ -5,7 +5,7 @@ import TripUpdateForm from '../../components/TripUpdateForm/TripUpdateForm';
 
 const TripModal = () => {
 
-   const { isOpen, modalType } = useSelector((state) => state.modal);
+   const { isOpen, modalType, currentTripId } = useSelector((state) => state.modal);
    const dispatch = useDispatch();
 
    if (!isOpen) return null; // Modal is not visible
@@ -20,7 +20,7 @@ const TripModal = () => {
             <button onClick={handleCloseModal} className="absolute top-4 right-4 font-semibold rounded-full bg-custom-blue text-white w-7 h-7">X</button>
             {/* Affiche AddTrip ou UpdateTrip en fonction de modalType */}
             {modalType === 'addTrip' && <TripAddForm />}
-            {modalType === 'updateTrip' && <TripUpdateForm />}
+            {modalType === 'updateTrip' && <TripUpdateForm key={currentTripId} />}
          </div>
       </div>
    );
