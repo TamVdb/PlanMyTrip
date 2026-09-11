@@ -25,6 +25,10 @@
    html {
       font-family: 'Quicksand', sans-serif;
    }
+   button:not(:disabled),
+   [role="button"] {
+      cursor: pointer;
+   }
    h1 {
       @apply text-2xl;
   }
