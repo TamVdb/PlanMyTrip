@@ -5,7 +5,7 @@ import ActivityUpdateForm from '../../components/ActivityUpdateForm/ActivityUpda
 
 const ActivityModal = () => {
 
-   const { isOpen, modalType } = useSelector((state) => state.modal);
+   const { isOpen, modalType, currentActivityId } = useSelector((state) => state.modal);
    const dispatch = useDispatch();
 
    if (!isOpen) return null; // Modal is not visible
@@ -20,7 +20,7 @@ const ActivityModal = () => {
             <button onClick={handleCloseModal} className="absolute top-4 right-4 font-semibold rounded-full bg-custom-blue text-white w-7 h-7">X</button>
             {/* Affiche AddActivity ou UpdateActivity en fonction de modalType */}
             {modalType === 'addActivity' && <ActivityAddForm />}
-            {modalType === 'updateActivity' && <ActivityUpdateForm />}
+            {modalType === 'updateActivity' && <ActivityUpdateForm key={currentActivityId} />}
          </div>
       </div>
    );

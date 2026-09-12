@@ -1,4 +1,4 @@
-import { useId, useState, useEffect } from 'react';
+import { useId, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTrip } from '../../store/trip/trip.action';
 import { closeModal } from '../../store/modal/modal.slice';
@@ -8,37 +8,29 @@ import { handleError } from '../../utils';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const parseDate = (dateString) => {
+   const [day, month, year] = dateString.split('/');
+   return new Date(`${month}/${day}/${year}`);
+};
+
 const TripUpdateForm = () => {
 
    // Id for accessibility of the form
    const inputId = useId();
 
-   // State for the values of the form (→ Component controlled)
-   const [tripName, setTripName] = useState('');
-   const [tripDescription, setTripDescription] = useState('');
-   const [tripLocation, setTripLocation] = useState('');
-   const [tripStartDate, setTripStartDate] = useState(null);
-   const [tripEndDate, setTripEndDate] = useState(null);
-
    const dispatch = useDispatch();
    const currentTripId = useSelector((state) => state.modal.currentTripId);
    const trip = useSelector((state) => state.trips.trips.find(trip => trip.id === currentTripId));
 
-   useEffect(() => {
-      if (trip) {
-         setTripName(trip.name);
-         setTripDescription(trip.description);
-         setTripLocation(trip.location);
-
-         const parseDate = (dateString) => {
-            const [day, month, year] = dateString.split('/');
-            return new Date(`${month}/${day}/${year}`);
-         };
-         setTripStartDate(parseDate(trip.startDate));
-         setTripEndDate(parseDate(trip.endDate));
-      }
-   }, [trip]);
-
+   // State for the values of the form (→ Component controlled)
+   // Initialisées directement depuis `trip` : ce composant est remonté à chaque
+   // ouverture (via key={currentTripId} dans TripModal), trip est donc déjà
+   // disponible au montage.
+   const [tripName, setTripName] = useState(trip?.name ?? '');
+   const [tripDescription, setTripDescription] = useState(trip?.description ?? '');
+   const [tripLocation, setTripLocation] = useState(trip?.location ?? '');
+   const [tripStartDate, setTripStartDate] = useState(() => (trip ? parseDate(trip.startDate) : null));
+   const [tripEndDate, setTripEndDate] = useState(() => (trip ? parseDate(trip.endDate) : null));
 
    const handleUpdateTrip = (e) => {
       e.preventDefault();

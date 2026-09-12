@@ -1,4 +1,4 @@
-import { useId, useState, useEffect } from 'react';
+import { useId, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateActivity } from '../../store/activity/activity.action';
 import { closeModal } from '../../store/modal/modal.slice';
@@ -11,27 +11,20 @@ const ActivityUpdateForm = () => {
    // Id for accessibility of the form
    const inputId = useId();
 
-   // State for the values of the form (→ Component controlled)
-   const [activityName, setActivityName] = useState('');
-   const [activityLocation, setActivityLocation] = useState('');
-   const [activityDuration, setActivityDuration] = useState('');
-   const [activityPrice, setActivityPrice] = useState('');
-
    const dispatch = useDispatch();
    const currentTripId = useSelector((state) => state.modal.currentTripId);
    const currentActivityId = useSelector((state) => state.modal.currentActivityId);
 
    const activity = useSelector((state) => state.activities.activities.find(activity => activity.id === currentActivityId));
 
-   useEffect(() => {
-      if (activity) {
-         setActivityName(activity.name);
-         setActivityLocation(activity.location);
-         setActivityDuration(activity.duration);
-         setActivityPrice(activity.price);
-      }
-   }, [activity]);
-
+   // State for the values of the form (→ Component controlled)
+   // Initialisées directement depuis `activity` : ce composant est remonté à chaque
+   // ouverture (via key={currentActivityId} dans ActivityModal), activity est donc
+   // déjà disponible au montage.
+   const [activityName, setActivityName] = useState(activity?.name ?? '');
+   const [activityLocation, setActivityLocation] = useState(activity?.location ?? '');
+   const [activityDuration, setActivityDuration] = useState(activity?.duration ?? '');
+   const [activityPrice, setActivityPrice] = useState(activity?.price ?? '');
 
    const handleUpdateActivity = (e) => {
       e.preventDefault();
