@@ -6,6 +6,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import '../../leafletIconFix';
 import axios from 'axios';
 import { handleError } from '../../utils';
 import { ToastContainer } from 'react-toastify';
