@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSetAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
-import { switchToAddtrip } from '../../store/modal/modal.slice';
+import { switchToAddtripAtom } from '../../store/modal/modal.atom';
 import { FaGlobeEurope } from 'react-icons/fa';
 import { setCredentials, clearCredentials } from '../../store/auth/auth.slice';
 import TripList from '../../components/TripList/TripList';
@@ -31,8 +32,10 @@ const TripsDashboard = () => {
       }
    }, [user, navigate]);
 
+   const switchToAddtrip = useSetAtom(switchToAddtripAtom);
+
    const handleAddTripClick = () => {
-      dispatch(switchToAddtrip());
+      switchToAddtrip();
    };
 
    return (

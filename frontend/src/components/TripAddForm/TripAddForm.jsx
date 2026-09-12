@@ -1,7 +1,8 @@
 import { useEffect, useId, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useSetAtom } from 'jotai';
 import { addTrip } from '../../store/trip/trip.action';
-import { closeModal } from '../../store/modal/modal.slice';
+import { closeModalAtom } from '../../store/modal/modal.atom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -56,6 +57,7 @@ const TripAddForm = () => {
 
    // Dispatch to add a new trip
    const dispatch = useDispatch();
+   const closeModal = useSetAtom(closeModalAtom);
 
    // Handle the submission of the form
    const handleAddTrip = (e) => {
@@ -90,7 +92,7 @@ const TripAddForm = () => {
       // Send the form data to the parent
       dispatch(addTrip(newTrip));
 
-      dispatch(closeModal());
+      closeModal();
 
       // Form reset
       setTripName('');

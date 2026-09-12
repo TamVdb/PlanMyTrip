@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { switchToAddActivity } from '../../store/modal/modal.slice';
+import { useSetAtom } from 'jotai';
+import { switchToAddActivityAtom } from '../../store/modal/modal.atom';
 import ActivityModal from '../ActivityModal/ActivityModal';
 import ActivitiesList from '../../components/ActivitiesList/ActivitiesList';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -12,6 +13,7 @@ const TripDetails = ({ trip }) => {
 
    const dispatch = useDispatch();
    const currentTripId = useSelector((state) => state.trips.currentTrip.id);
+   const switchToAddActivity = useSetAtom(switchToAddActivityAtom);
 
    const [searchParams, setSearchParams] = useSearchParams();
    const pageParam = searchParams.get('page');
@@ -53,11 +55,8 @@ const TripDetails = ({ trip }) => {
    };
 
    const handleAddActivityClick = () => {
-      dispatch(switchToAddActivity({ tripId: currentTripId }));
+      switchToAddActivity({ tripId: currentTripId });
    };
-
-   // Get activities from the store to display in the activities list
-   const activities = useSelector((state) => state.activities.activities);
 
    // Update activity day
    const handleDropActivity = (activityId, day) => {

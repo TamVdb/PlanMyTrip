@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useSetAtom } from 'jotai';
 import { getTrips, deleteTrip, checkTrip } from '../../store/trip/trip.action';
-import { switchToUpdatetrip } from '../../store/modal/modal.slice';
+import { switchToUpdatetripAtom } from '../../store/modal/modal.atom';
 import { FaLocationDot, FaTrashCan, FaPencil } from "react-icons/fa6";
 import { useEffect } from 'react';
 import Spinner from '../Spinner/Spinner';
@@ -22,8 +23,10 @@ const Trip = ({ id, name, description, location, startDate, endDate, days, isChe
       dispatch(checkTrip(id));
    };
 
+   const switchToUpdatetrip = useSetAtom(switchToUpdatetripAtom);
+
    const handleUpdateTripClick = () => {
-      dispatch(switchToUpdatetrip(id));
+      switchToUpdatetrip(id);
    };
 
    // Function to navigate to the trip page

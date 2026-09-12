@@ -1,7 +1,8 @@
 import { useId, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { updateActivity } from '../../store/activity/activity.action';
-import { closeModal } from '../../store/modal/modal.slice';
+import { modalAtom, closeModalAtom } from '../../store/modal/modal.atom';
 import { handleError } from '../../utils';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,8 +13,8 @@ const ActivityUpdateForm = () => {
    const inputId = useId();
 
    const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.modal.currentTripId);
-   const currentActivityId = useSelector((state) => state.modal.currentActivityId);
+   const { currentTripId, currentActivityId } = useAtomValue(modalAtom);
+   const closeModal = useSetAtom(closeModalAtom);
 
    const activity = useSelector((state) => state.activities.activities.find(activity => activity.id === currentActivityId));
 
@@ -38,7 +39,7 @@ const ActivityUpdateForm = () => {
 
       dispatch(updateActivity({ tripId: currentTripId, activityId: currentActivityId, updatedActivity: updatedActivity }));
 
-      dispatch(closeModal());
+      closeModal();
    };
 
    return (

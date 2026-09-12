@@ -1,7 +1,8 @@
 import { useId, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { updateTrip } from '../../store/trip/trip.action';
-import { closeModal } from '../../store/modal/modal.slice';
+import { modalAtom, closeModalAtom } from '../../store/modal/modal.atom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import { handleError } from '../../utils';
@@ -19,7 +20,8 @@ const TripUpdateForm = () => {
    const inputId = useId();
 
    const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.modal.currentTripId);
+   const { currentTripId } = useAtomValue(modalAtom);
+   const closeModal = useSetAtom(closeModalAtom);
    const trip = useSelector((state) => state.trips.trips.find(trip => trip.id === currentTripId));
 
    // State for the values of the form (→ Component controlled)
@@ -62,7 +64,7 @@ const TripUpdateForm = () => {
 
       dispatch(updateTrip({ id: currentTripId, updatedTrip }));
 
-      dispatch(closeModal());
+      closeModal();
    };
 
    return (

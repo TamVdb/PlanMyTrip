@@ -1,17 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from '../../store/modal/modal.slice';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { modalAtom, closeModalAtom } from '../../store/modal/modal.atom';
 import ActivityAddForm from '../../components/ActivityAddForm/ActivityAddForm';
 import ActivityUpdateForm from '../../components/ActivityUpdateForm/ActivityUpdateForm';
 
 const ActivityModal = () => {
 
-   const { isOpen, modalType, currentActivityId } = useSelector((state) => state.modal);
-   const dispatch = useDispatch();
+   const { isOpen, modalType, currentActivityId } = useAtomValue(modalAtom);
+   const closeModal = useSetAtom(closeModalAtom);
 
    if (!isOpen) return null; // Modal is not visible
 
    const handleCloseModal = () => {
-      dispatch(closeModal());
+      closeModal();
    };
 
    return (

@@ -1,25 +1,27 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModal, switchToLogin, switchToSignup } from '../../store/modal/modal.slice';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { modalAtom, closeModalAtom, switchToLoginAtom, switchToSignupAtom } from '../../store/modal/modal.atom';
 import Login from '../../components/Login/Login';
 import Signup from '../../components/Signup/Signup';
 
 const AuthModal = () => {
 
-   const dispatch = useDispatch();
-   const { isOpen, modalType } = useSelector((state) => state.modal);
+   const { isOpen, modalType } = useAtomValue(modalAtom);
+   const closeModal = useSetAtom(closeModalAtom);
+   const switchToLogin = useSetAtom(switchToLoginAtom);
+   const switchToSignup = useSetAtom(switchToSignupAtom);
 
    if (!isOpen) return null; // Modal is not visible
 
    const handleCloseModal = () => {
-      dispatch(closeModal());
+      closeModal();
    };
 
    const handleSwitchToLogin = () => {
-      dispatch(switchToLogin());
+      switchToLogin();
    };
 
    const handleSwitchToSignup = () => {
-      dispatch(switchToSignup());
+      switchToSignup();
    };
 
    return (
