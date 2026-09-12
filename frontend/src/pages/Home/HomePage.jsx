@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import Hero from '../../containers/Hero/Hero';
 import { openModalAtom } from '../../store/modal/modal.atom';
+import { userAtom } from '../../store/auth/auth.atom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
@@ -10,7 +10,7 @@ const HomePage = () => {
    const navigate = useNavigate();
 
    // Select user from state
-   const { user } = useSelector((state) => state.auth);
+   const user = useAtomValue(userAtom);
 
    useEffect(() => {
       if (user) {

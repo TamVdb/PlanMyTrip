@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../../store/users/user.action';
-import { setCredentials } from '../../store/auth/auth.slice';
+import { useSetAtom } from 'jotai';
+import { loginAtom } from '../../store/users/user.atom';
+import { setCredentialsAtom } from '../../store/auth/auth.atom';
 import { handleError } from '../../utils';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,7 +15,8 @@ const Login = ({ onSwitchToSignup = () => { }, onSuccessfulConnection = () => { 
    const [showPassword, setShowPassword] = useState(false);
 
    const navigate = useNavigate();
-   const dispatch = useDispatch();
+   const login = useSetAtom(loginAtom);
+   const setCredentials = useSetAtom(setCredentialsAtom);
 
    const handleLoginSubmit = async (e) => {
       e.preventDefault();
@@ -26,11 +27,11 @@ const Login = ({ onSwitchToSignup = () => { }, onSuccessfulConnection = () => { 
       }
 
       try {
-         // Dispatch login action
-         const resultAction = await dispatch(login({ username, password })).unwrap();
+         // Call login action
+         const resultAction = await login({ username, password });
 
          // Check if login was successful
-         dispatch(setCredentials(resultAction)); // Update credentials
+         setCredentials(resultAction); // Update credentials
          onSuccessfulConnection();
          navigate('/trips', { state: { user: resultAction.user } });
       } catch (error) {

@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { switchToLoginAtom, switchToSignupAtom, openModalAtom } from './store/modal/modal.atom';
+import { userStateAtom } from './store/users/user.atom';
 import Header from './containers/Header/Header';
 import Footer from './containers/Footer/Footer';
 import AuthModal from './containers/AuthModal/AuthModal';
@@ -9,7 +9,7 @@ import AuthModal from './containers/AuthModal/AuthModal';
 function App() {
 
    // Sélectionne l'utilisateur du state
-   const { isSuccess } = useSelector((state) => state.user);
+   const { isSuccess } = useAtomValue(userStateAtom);
 
    const switchToLogin = useSetAtom(switchToLoginAtom);
    const switchToSignup = useSetAtom(switchToSignupAtom);

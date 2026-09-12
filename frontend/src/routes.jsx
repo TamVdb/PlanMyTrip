@@ -2,12 +2,13 @@ import HomePage from './pages/Home/HomePage';
 import TripsDashboardPage from './pages/Trips/TripsDashboardPage';
 import TripPage from './pages/Trip/TripPage';
 import App from './App';
-import { useSelector } from 'react-redux';
+import { useAtomValue } from 'jotai';
+import { userAtom } from './store/auth/auth.atom';
 import { Navigate } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
 
-   const { user } = useSelector((state) => state.auth);
+   const user = useAtomValue(userAtom);
 
    return user ? children : <Navigate to='/' replace />;
 };

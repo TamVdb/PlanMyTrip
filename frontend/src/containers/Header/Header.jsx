@@ -1,10 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useAtomValue } from 'jotai';
+import { userAtom } from '../../store/auth/auth.atom';
 import Logout from '../../components/Logout/Logout';
 
 const Header = ({ onLoginClick, onSignUpClick }) => {
 
    // Select user from state
-   const { user } = useSelector((state) => state.auth);
+   const user = useAtomValue(userAtom);
    // console.log("User state in Header:", user);
 
    return (

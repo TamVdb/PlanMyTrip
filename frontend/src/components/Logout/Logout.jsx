@@ -1,18 +1,19 @@
-import { useDispatch } from 'react-redux';
-import { logout } from '../../store/users/user.action';
-import { clearCredentials } from '../../store/auth/auth.slice';
+import { useSetAtom } from 'jotai';
+import { logoutAtom } from '../../store/users/user.atom';
+import { clearCredentialsAtom } from '../../store/auth/auth.atom';
 import { useNavigate } from "react-router-dom";
 
 const Logout = () => {
 
-   const dispatch = useDispatch();
+   const logout = useSetAtom(logoutAtom);
+   const clearCredentials = useSetAtom(clearCredentialsAtom);
    const navigate = useNavigate();
 
    const handleLogout = async () => {
       try {
          // Calle the API to log out the user in the backend
-         await dispatch(logout());
-         dispatch(clearCredentials()); // Erase credentials from state
+         await logout();
+         clearCredentials(); // Erase credentials from state
          navigate('/');
       } catch (error) {
          console.error(error);

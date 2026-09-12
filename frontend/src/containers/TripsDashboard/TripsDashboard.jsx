@@ -1,30 +1,30 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useNavigate } from 'react-router-dom';
 import { switchToAddtripAtom } from '../../store/modal/modal.atom';
 import { FaGlobeEurope } from 'react-icons/fa';
-import { setCredentials, clearCredentials } from '../../store/auth/auth.slice';
+import { userAtom, setCredentialsAtom, clearCredentialsAtom } from '../../store/auth/auth.atom';
 import TripList from '../../components/TripList/TripList';
 import TripModal from '../TripModal/TripModal';
 
 const TripsDashboard = () => {
 
-   const dispatch = useDispatch();
    const navigate = useNavigate();
 
-   const { user } = useSelector((state) => state.auth);
+   const user = useAtomValue(userAtom);
+   const setCredentials = useSetAtom(setCredentialsAtom);
+   const clearCredentials = useSetAtom(clearCredentialsAtom);
 
    useEffect(() => {
       // Check if user is in localStorage
       const storedUser = localStorage.getItem('user');
       if (storedUser) {
          const userData = JSON.parse(storedUser); // Get user data from localStorage
-         dispatch(setCredentials(userData)); // Update user state
+         setCredentials(userData); // Update user state
       } else {
-         dispatch(clearCredentials()); // If user is not logged in, logout
+         clearCredentials(); // If user is not logged in, logout
       }
-   }, [dispatch]);
+   }, [setCredentials, clearCredentials]);
 
    useEffect(() => {
       if (!user) {
