@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { switchToAddActivityAtom } from '../../store/modal/modal.atom';
 import { tripStateAtom } from '../../store/trip/trip.atom';
@@ -8,14 +7,14 @@ import ActivitiesList from '../../components/ActivitiesList/ActivitiesList';
 import { Link, useSearchParams } from 'react-router-dom';
 import { FaGlobeEurope, FaPlus } from 'react-icons/fa';
 import Day from '../Day/Day';
-import { updateActivityDay } from '../../store/activity/activity.action';
+import { updateActivityDayAtom } from '../../store/activity/activity.atom';
 
 const TripDetails = ({ trip }) => {
 
-   const dispatch = useDispatch();
    const { currentTrip } = useAtomValue(tripStateAtom);
    const currentTripId = currentTrip.id;
    const switchToAddActivity = useSetAtom(switchToAddActivityAtom);
+   const updateActivityDay = useSetAtom(updateActivityDayAtom);
 
    const [searchParams, setSearchParams] = useSearchParams();
    const pageParam = searchParams.get('page');
@@ -62,11 +61,11 @@ const TripDetails = ({ trip }) => {
 
    // Update activity day
    const handleDropActivity = (activityId, day) => {
-      dispatch(updateActivityDay({
+      updateActivityDay({
          tripId: currentTripId,
          activityId,
          updatedDay: { day }
-      }));
+      });
    };
 
    return (

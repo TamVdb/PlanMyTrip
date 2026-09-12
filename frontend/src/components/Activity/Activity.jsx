@@ -1,19 +1,18 @@
-import { useDispatch } from 'react-redux';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { deleteActivity } from '../../store/activity/activity.action';
+import { deleteActivityAtom } from '../../store/activity/activity.atom';
 import { FaTrashCan, FaPencil } from "react-icons/fa6";
 import { switchToUpdateActivityAtom } from '../../store/modal/modal.atom';
 import { tripStateAtom } from '../../store/trip/trip.atom';
 
 const Activity = ({ id, name, location, duration, price, day }) => {
 
-   const dispatch = useDispatch();
    const { currentTrip } = useAtomValue(tripStateAtom);
    const currentTripId = currentTrip.id;
    const switchToUpdateActivity = useSetAtom(switchToUpdateActivityAtom);
+   const deleteActivity = useSetAtom(deleteActivityAtom);
 
    const handleActivityDelete = () => {
-      dispatch(deleteActivity({ tripId: currentTripId, activityId: id }));
+      deleteActivity({ tripId: currentTripId, activityId: id });
    };
 
    const handleUpdateActivityClick = () => {

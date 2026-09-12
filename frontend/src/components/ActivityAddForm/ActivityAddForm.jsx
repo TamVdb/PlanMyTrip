@@ -1,7 +1,6 @@
 import { useId, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { addActivity } from '../../store/activity/activity.action';
+import { addActivityAtom } from '../../store/activity/activity.atom';
 import { closeModalAtom } from '../../store/modal/modal.atom';
 import { tripStateAtom } from '../../store/trip/trip.atom';
 import { handleError } from '../../utils';
@@ -19,8 +18,8 @@ const ActivityAddForm = () => {
    const [activityDuration, setActivityDuration] = useState('');
    const [activityPrice, setActivityPrice] = useState('');
 
-   // Dispatch to add a new activity
-   const dispatch = useDispatch();
+   // Call to add a new activity
+   const addActivity = useSetAtom(addActivityAtom);
    const { currentTrip } = useAtomValue(tripStateAtom);
    const currentTripId = currentTrip.id;
    const closeModal = useSetAtom(closeModalAtom);
@@ -37,7 +36,7 @@ const ActivityAddForm = () => {
       };
 
       // Send the form data to the parent
-      dispatch(addActivity({ tripId: currentTripId, activityData: newActivity }));
+      addActivity({ tripId: currentTripId, activityData: newActivity });
 
       closeModal();
 
