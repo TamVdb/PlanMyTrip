@@ -1,8 +1,9 @@
 import { useId, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useSetAtom } from 'jotai';
+import { useDispatch } from 'react-redux';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { addActivity } from '../../store/activity/activity.action';
 import { closeModalAtom } from '../../store/modal/modal.atom';
+import { tripStateAtom } from '../../store/trip/trip.atom';
 import { handleError } from '../../utils';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,7 +21,8 @@ const ActivityAddForm = () => {
 
    // Dispatch to add a new activity
    const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.trips.currentTrip.id);
+   const { currentTrip } = useAtomValue(tripStateAtom);
+   const currentTripId = currentTrip.id;
    const closeModal = useSetAtom(closeModalAtom);
 
    // Handle the submission of the form

@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useSetAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { deleteActivity } from '../../store/activity/activity.action';
 import { FaTrashCan, FaPencil } from "react-icons/fa6";
 import { switchToUpdateActivityAtom } from '../../store/modal/modal.atom';
+import { tripStateAtom } from '../../store/trip/trip.atom';
 
 const Day = ({ nbDay, onDropActivity }) => {
 
    const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.trips.currentTrip.id);
+   const { currentTrip } = useAtomValue(tripStateAtom);
+   const currentTripId = currentTrip.id;
 
    const activities = useSelector((state) => state.activities.activities);
    const switchToUpdateActivity = useSetAtom(switchToUpdateActivityAtom);

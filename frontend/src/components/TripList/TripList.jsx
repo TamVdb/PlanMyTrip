@@ -1,6 +1,5 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useSetAtom } from 'jotai';
-import { getTrips, deleteTrip, checkTrip } from '../../store/trip/trip.action';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { getTripsAtom, deleteTripAtom, checkTripAtom, tripStateAtom } from '../../store/trip/trip.atom';
 import { switchToUpdatetripAtom } from '../../store/modal/modal.atom';
 import { FaLocationDot, FaTrashCan, FaPencil } from "react-icons/fa6";
 import { useEffect } from 'react';
@@ -9,18 +8,19 @@ import { useNavigate } from 'react-router-dom';
 
 const Trip = ({ id, name, description, location, startDate, endDate, days, isChecked }) => {
 
-   const dispatch = useDispatch();
    const navigate = useNavigate();
 
+   const deleteTrip = useSetAtom(deleteTripAtom);
+   const checkTrip = useSetAtom(checkTripAtom);
 
    // Function to delete a trip
    const handleTripDelete = () => {
-      dispatch(deleteTrip(id));
+      deleteTrip(id);
    };
 
    // Function to check when a trip is done
    const handleTripDone = () => {
-      dispatch(checkTrip(id));
+      checkTrip(id);
    };
 
    const switchToUpdatetrip = useSetAtom(switchToUpdatetripAtom);
@@ -76,16 +76,15 @@ const Trip = ({ id, name, description, location, startDate, endDate, days, isChe
 
 const TripList = () => {
 
-   const dispatch = useDispatch();
-
-   const { trips, isLoading, isError, message } = useSelector((state) => state.trips);
+   const getTrips = useSetAtom(getTripsAtom);
+   const { trips, isLoading, isError, message } = useAtomValue(tripStateAtom);
 
    useEffect(() => {
 
       if (isError) { console.log('Error:', message); }
 
-      dispatch(getTrips());
-   }, [dispatch, isError, message]);
+      getTrips();
+   }, [getTrips, isError, message]);
 
    // if (isLoading) return <Spinner />;
 

@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useSetAtom } from 'jotai';
+import { useDispatch } from 'react-redux';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { switchToAddActivityAtom } from '../../store/modal/modal.atom';
+import { tripStateAtom } from '../../store/trip/trip.atom';
 import ActivityModal from '../ActivityModal/ActivityModal';
 import ActivitiesList from '../../components/ActivitiesList/ActivitiesList';
 import { Link, useSearchParams } from 'react-router-dom';
@@ -12,7 +13,8 @@ import { updateActivityDay } from '../../store/activity/activity.action';
 const TripDetails = ({ trip }) => {
 
    const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.trips.currentTrip.id);
+   const { currentTrip } = useAtomValue(tripStateAtom);
+   const currentTripId = currentTrip.id;
    const switchToAddActivity = useSetAtom(switchToAddActivityAtom);
 
    const [searchParams, setSearchParams] = useSearchParams();

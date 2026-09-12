@@ -1,7 +1,6 @@
 import { useId, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { updateTrip } from '../../store/trip/trip.action';
+import { updateTripAtom, tripStateAtom } from '../../store/trip/trip.atom';
 import { modalAtom, closeModalAtom } from '../../store/modal/modal.atom';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
@@ -19,10 +18,11 @@ const TripUpdateForm = () => {
    // Id for accessibility of the form
    const inputId = useId();
 
-   const dispatch = useDispatch();
+   const updateTrip = useSetAtom(updateTripAtom);
    const { currentTripId } = useAtomValue(modalAtom);
    const closeModal = useSetAtom(closeModalAtom);
-   const trip = useSelector((state) => state.trips.trips.find(trip => trip.id === currentTripId));
+   const { trips } = useAtomValue(tripStateAtom);
+   const trip = trips.find(trip => trip.id === currentTripId);
 
    // State for the values of the form (→ Component controlled)
    // Initialisées directement depuis `trip` : ce composant est remonté à chaque
@@ -62,7 +62,7 @@ const TripUpdateForm = () => {
          days: days + 1
       };
 
-      dispatch(updateTrip({ id: currentTripId, updatedTrip }));
+      updateTrip({ id: currentTripId, updatedTrip });
 
       closeModal();
    };

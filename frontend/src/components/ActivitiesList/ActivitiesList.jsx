@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useAtomValue } from 'jotai';
 import { getActivities } from '../../store/activity/activity.action';
+import { tripStateAtom } from '../../store/trip/trip.atom';
 import { useEffect } from 'react';
 import Spinner from '../Spinner/Spinner';
 import Activity from '../Activity/Activity';
@@ -7,7 +9,8 @@ import Activity from '../Activity/Activity';
 const ActivitiesList = () => {
 
    const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.trips.currentTrip.id);
+   const { currentTrip } = useAtomValue(tripStateAtom);
+   const currentTripId = currentTrip.id;
 
    const { activities, isLoading, isError, message } = useSelector((state) => state.activities);
 
