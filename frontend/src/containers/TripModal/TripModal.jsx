@@ -1,17 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from '../../store/modal/modal.slice';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { modalAtom, closeModalAtom } from '../../store/modal/modal.atom';
 import TripAddForm from '../../components/TripAddForm/TripAddForm';
 import TripUpdateForm from '../../components/TripUpdateForm/TripUpdateForm';
 
 const TripModal = () => {
 
-   const { isOpen, modalType, currentTripId } = useSelector((state) => state.modal);
-   const dispatch = useDispatch();
+   const { isOpen, modalType, currentTripId } = useAtomValue(modalAtom);
+   const closeModal = useSetAtom(closeModalAtom);
 
    if (!isOpen) return null; // Modal is not visible
 
    const handleCloseModal = () => {
-      dispatch(closeModal());
+      closeModal();
    };
 
    return (

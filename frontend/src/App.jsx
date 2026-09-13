@@ -1,25 +1,28 @@
 import { Outlet } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { switchToLogin, switchToSignup, openModal } from './store/modal/modal.slice';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { switchToLoginAtom, switchToSignupAtom, openModalAtom } from './store/modal/modal.atom';
+import { userStateAtom } from './store/users/user.atom';
 import Header from './containers/Header/Header';
 import Footer from './containers/Footer/Footer';
 import AuthModal from './containers/AuthModal/AuthModal';
 
 function App() {
 
-   const dispatch = useDispatch();
-
    // Sélectionne l'utilisateur du state
-   const { isSuccess } = useSelector((state) => state.user);
+   const { isSuccess } = useAtomValue(userStateAtom);
+
+   const switchToLogin = useSetAtom(switchToLoginAtom);
+   const switchToSignup = useSetAtom(switchToSignupAtom);
+   const openModal = useSetAtom(openModalAtom);
 
    const handleLoginModal = () => {
-      dispatch(switchToLogin()); // Met à jour le type de modal
-      dispatch(openModal('login')); // Ouvre la modal login
+      switchToLogin(); // Met à jour le type de modal
+      openModal('login'); // Ouvre la modal login
    };
 
    const handleSignUpModal = () => {
-      dispatch(switchToSignup()); // Met à jour le type de modal
-      dispatch(openModal('signup')); // Ouvre la modal signup
+      switchToSignup(); // Met à jour le type de modal
+      openModal('signup'); // Ouvre la modal signup
    };
 
    return (

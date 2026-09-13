@@ -1,16 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useAtomValue, useSetAtom } from 'jotai';
 import Hero from '../../containers/Hero/Hero';
-import { openModal } from '../../store/modal/modal.slice';
+import { openModalAtom } from '../../store/modal/modal.atom';
+import { userAtom } from '../../store/auth/auth.atom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const HomePage = () => {
 
-   const dispatch = useDispatch();
    const navigate = useNavigate();
 
    // Select user from state
-   const { user } = useSelector((state) => state.auth);
+   const user = useAtomValue(userAtom);
 
    useEffect(() => {
       if (user) {
@@ -18,8 +18,10 @@ const HomePage = () => {
       }
    }, [user, navigate]);
 
+   const openModal = useSetAtom(openModalAtom);
+
    const handleStartPlanningClick = () => {
-      dispatch(openModal('login'));
+      openModal('login');
    };
 
    return (

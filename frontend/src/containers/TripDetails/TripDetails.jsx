@@ -1,17 +1,20 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { switchToAddActivity } from '../../store/modal/modal.slice';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { switchToAddActivityAtom } from '../../store/modal/modal.atom';
+import { tripStateAtom } from '../../store/trip/trip.atom';
 import ActivityModal from '../ActivityModal/ActivityModal';
 import ActivitiesList from '../../components/ActivitiesList/ActivitiesList';
 import { Link, useSearchParams } from 'react-router-dom';
 import { FaGlobeEurope, FaPlus } from 'react-icons/fa';
 import Day from '../Day/Day';
-import { updateActivityDay } from '../../store/activity/activity.action';
+import { updateActivityDayAtom } from '../../store/activity/activity.atom';
 
 const TripDetails = ({ trip }) => {
 
-   const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.trips.currentTrip.id);
+   const { currentTrip } = useAtomValue(tripStateAtom);
+   const currentTripId = currentTrip.id;
+   const switchToAddActivity = useSetAtom(switchToAddActivityAtom);
+   const updateActivityDay = useSetAtom(updateActivityDayAtom);
 
    const [searchParams, setSearchParams] = useSearchParams();
    const pageParam = searchParams.get('page');
@@ -53,19 +56,16 @@ const TripDetails = ({ trip }) => {
    };
 
    const handleAddActivityClick = () => {
-      dispatch(switchToAddActivity({ tripId: currentTripId }));
+      switchToAddActivity({ tripId: currentTripId });
    };
-
-   // Get activities from the store to display in the activities list
-   const activities = useSelector((state) => state.activities.activities);
 
    // Update activity day
    const handleDropActivity = (activityId, day) => {
-      dispatch(updateActivityDay({
+      updateActivityDay({
          tripId: currentTripId,
          activityId,
          updatedDay: { day }
-      }));
+      });
    };
 
    return (

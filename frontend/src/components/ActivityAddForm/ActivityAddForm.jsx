@@ -1,7 +1,8 @@
 import { useId, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addActivity } from '../../store/activity/activity.action';
-import { closeModal } from '../../store/modal/modal.slice';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { addActivityAtom } from '../../store/activity/activity.atom';
+import { closeModalAtom } from '../../store/modal/modal.atom';
+import { tripStateAtom } from '../../store/trip/trip.atom';
 import { handleError } from '../../utils';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,9 +18,11 @@ const ActivityAddForm = () => {
    const [activityDuration, setActivityDuration] = useState('');
    const [activityPrice, setActivityPrice] = useState('');
 
-   // Dispatch to add a new activity
-   const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.trips.currentTrip.id);
+   // Call to add a new activity
+   const addActivity = useSetAtom(addActivityAtom);
+   const { currentTrip } = useAtomValue(tripStateAtom);
+   const currentTripId = currentTrip.id;
+   const closeModal = useSetAtom(closeModalAtom);
 
    // Handle the submission of the form
    const handleAddActivity = (e) => {
@@ -33,9 +36,9 @@ const ActivityAddForm = () => {
       };
 
       // Send the form data to the parent
-      dispatch(addActivity({ tripId: currentTripId, activityData: newActivity }));
+      addActivity({ tripId: currentTripId, activityData: newActivity });
 
-      dispatch(closeModal());
+      closeModal();
 
       // Form reset
       setActivityName('');

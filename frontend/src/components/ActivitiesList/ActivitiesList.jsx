@@ -1,23 +1,25 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { getActivities } from '../../store/activity/activity.action';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { getActivitiesAtom, activityStateAtom } from '../../store/activity/activity.atom';
+import { tripStateAtom } from '../../store/trip/trip.atom';
 import { useEffect } from 'react';
 import Spinner from '../Spinner/Spinner';
 import Activity from '../Activity/Activity';
 
 const ActivitiesList = () => {
 
-   const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.trips.currentTrip.id);
+   const { currentTrip } = useAtomValue(tripStateAtom);
+   const currentTripId = currentTrip.id;
 
-   const { activities, isLoading, isError, message } = useSelector((state) => state.activities);
+   const getActivities = useSetAtom(getActivitiesAtom);
+   const { activities, isLoading, isError, message } = useAtomValue(activityStateAtom);
 
    useEffect(() => {
       if (isError) { console.log('Error:', message); }
 
       if (currentTripId) {
-         dispatch(getActivities({ tripId: currentTripId }));
+         getActivities({ tripId: currentTripId });
       }
-   }, [dispatch, currentTripId, isError, message]);
+   }, [getActivities, currentTripId, isError, message]);
 
    // if (isLoading) return <Spinner />;
 

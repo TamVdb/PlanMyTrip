@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux';
-import { signup } from '../../store/users/user.action';
-import { setCredentials } from '../../store/auth/auth.slice';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { signupAtom, userStateAtom } from '../../store/users/user.atom';
 import { handleError, handleSuccess } from '../../utils';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,8 +13,8 @@ const Signup = ({ onSwitchToLogin = () => { } }) => {
    const [password, setPassword] = useState('');
    const [showPassword, setShowPassword] = useState(false);
 
-   const dispatch = useDispatch();
-   const { isSuccess, isError, message } = useSelector((state) => state.user);
+   const signup = useSetAtom(signupAtom);
+   const { isSuccess, isError, message } = useAtomValue(userStateAtom);
 
    const handleSignupSubmit = (e) => {
       e.preventDefault();
@@ -26,19 +25,19 @@ const Signup = ({ onSwitchToLogin = () => { } }) => {
       }
 
       const newUser = { username, email, password };
-      dispatch(signup(newUser));
+      signup(newUser);
    };
 
    useEffect(() => {
       if (isSuccess) {
          handleSuccess('User created successfully');
-         // // After signing up successfully, dispatch setCredentials to store the user
-         // dispatch(setCredentials({ username })); // Update credentials
+         // // After signing up successfully, call setCredentials to store the user
+         // setCredentials({ username }); // Update credentials
          setTimeout(() => onSwitchToLogin(), 2000);
       } else if (isError) {
          handleError(message || 'An error occurred. Please try again');
       }
-   }, [isSuccess, isError, message, dispatch, onSwitchToLogin]); // Dépendances
+   }, [isSuccess, isError, message, onSwitchToLogin]); // Dépendances
 
 
    return (

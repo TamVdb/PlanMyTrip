@@ -1,21 +1,24 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteActivity } from '../../store/activity/activity.action';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { deleteActivityAtom, activityStateAtom } from '../../store/activity/activity.atom';
 import { FaTrashCan, FaPencil } from "react-icons/fa6";
-import { switchToUpdateActivity } from '../../store/modal/modal.slice';
+import { switchToUpdateActivityAtom } from '../../store/modal/modal.atom';
+import { tripStateAtom } from '../../store/trip/trip.atom';
 
 const Day = ({ nbDay, onDropActivity }) => {
 
-   const dispatch = useDispatch();
-   const currentTripId = useSelector((state) => state.trips.currentTrip.id);
+   const { currentTrip } = useAtomValue(tripStateAtom);
+   const currentTripId = currentTrip.id;
 
-   const activities = useSelector((state) => state.activities.activities);
+   const { activities } = useAtomValue(activityStateAtom);
+   const switchToUpdateActivity = useSetAtom(switchToUpdateActivityAtom);
+   const deleteActivity = useSetAtom(deleteActivityAtom);
 
    const handleActivityDelete = (activityId) => {
-      dispatch(deleteActivity({ tripId: currentTripId, activityId }));
+      deleteActivity({ tripId: currentTripId, activityId });
    };
 
    const handleUpdateActivityClick = (activityId) => {
-      dispatch(switchToUpdateActivity({ tripId: currentTripId, activityId }));
+      switchToUpdateActivity({ tripId: currentTripId, activityId });
    };
 
    const handleDragOver = (e) => {

@@ -1,19 +1,19 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useAtomValue, useSetAtom } from 'jotai';
 import { useParams } from 'react-router-dom';
-import { getTrip } from '../../store/trip/trip.action';
+import { getTripAtom, tripStateAtom } from '../../store/trip/trip.atom';
 import TripDetails from '../../containers/TripDetails/TripDetails';
 import Spinner from '../../components/Spinner/Spinner';
 
 const TripPage = () => {
 
    const { id } = useParams();
-   const dispatch = useDispatch();
-   const { currentTrip, isLoading, isError, message } = useSelector((state) => state.trips);
+   const getTrip = useSetAtom(getTripAtom);
+   const { currentTrip, isLoading, isError, message } = useAtomValue(tripStateAtom);
 
    useEffect(() => {
-      dispatch(getTrip(id));
-   }, [dispatch, id]);
+      getTrip(id);
+   }, [getTrip, id]);
 
    // if (isLoading) return <Spinner />;
 
